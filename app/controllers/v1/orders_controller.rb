@@ -1,4 +1,10 @@
 class V1::OrdersController < ApplicationController
+
+    def index
+        orders = Order.all
+        render json: orders, each_serializer: Orders::IndexSerializer
+    end
+
     def create
       order = Order.create(order_params)
       if order.persisted?
