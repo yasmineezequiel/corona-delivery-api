@@ -1,4 +1,5 @@
 class V1::OrdersController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
 
     def index
         orders = Order.all
@@ -6,7 +7,7 @@ class V1::OrdersController < ApplicationController
     end
 
     def create
-      order = Order.create(order_params)
+      order = current_user.order.create(order_params)
       if order.persisted?
         render json: { message: 'The order was successfully created.' }, status: 201
       else
