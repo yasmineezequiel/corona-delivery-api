@@ -20,7 +20,7 @@ class V1::OrdersController < ApplicationController
         if order.update(order_params)
           render json: { message: 'Your order has been updated.' }, status: 200
         else
-          render_error_message(order.errors.full_messages.to_sentence, 422)
+          render json: { error_message: order.errors.full_messages.to_sentence }, status: 422
         end
     end    
   
